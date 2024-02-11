@@ -77,7 +77,7 @@ pipeline {
     }
     stage ('Deploy to Dev Environment') {
       steps {
-        build job: 'proj_deploy', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev.yml']], propagate: false, wait: true
+        build job: 'proj_deployment', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev.yml']], propagate: false, wait: true
       }
     }
  }
