@@ -75,7 +75,7 @@ pipeline {
     //              server.upload spec: uploadSpec
     //         }
     //     }
-    }
+    //}
     // stage ('Deploy to Dev Environment') {
     //   steps {
     //     build job: 'proj_deployment', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev.yml']], propagate: false, wait: true
