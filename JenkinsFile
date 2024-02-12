@@ -53,29 +53,29 @@ pipeline {
     }
      stage ('Package Artifact') {
          steps {
-             sh  'ls -l ${WORKSPACE}/'
-             sh 'zip -q php-todo.zip ${WORKSPACE}/*'
+             sh  'ls -l'
+             //sh 'zip -q php-todo.zip ${WORKSPACE}/*'
          }
      }
-    stage ('Upload Artifact to Artifactory') {
-        steps {
-            script { 
-                def server = Artifactory.server 'jfrog-artifactory'                 
-                def uploadSpec = """{
-                    "files": [
-                      {
-                       "pattern": "php-todo.zip",
-                       "target": "PBL/",
-                       "props": "type=zip;status=ready"
+    // stage ('Upload Artifact to Artifactory') {
+    //     steps {
+    //         script { 
+    //             def server = Artifactory.server 'jfrog-artifactory'                 
+    //             def uploadSpec = """{
+    //                 "files": [
+    //                   {
+    //                    "pattern": "php-todo.zip",
+    //                    "target": "PBL/",
+    //                    "props": "type=zip;status=ready"
 
-                       }
-                    ]
-                 }""" 
+    //                    }
+    //                 ]
+    //              }""" 
 
-                 server.upload spec: uploadSpec
-            }
-        }
-    }
+    //              server.upload spec: uploadSpec
+    //         }
+    //     }
+    // }
     // stage ('Deploy to Dev Environment') {
     //   steps {
     //     build job: 'proj_deployment', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev.yml']], propagate: false, wait: true
