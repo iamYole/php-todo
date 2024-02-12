@@ -53,8 +53,8 @@ pipeline {
     }
      stage ('Package Artifact') {
          steps {
-             sh  'ls -l ${WORKSPACE}/php_todo_cicd/*'
-             sh 'zip -q php-todo.zip ${WORKSPACE}/php_todo_cicd/*'
+             sh  'ls -l ${WORKSPACE}/php_todo_cicd/'
+             //sh 'zip -q php-todo.zip ${WORKSPACE}/php_todo_cicd/*'
          }
      }
     // stage ('Upload Artifact to Artifactory') {
