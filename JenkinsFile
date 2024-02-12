@@ -51,11 +51,11 @@ pipeline {
             plot csvFileName: 'plot-396c4a6b-b573-41e5-85d8-73613b2ffffb.csv', csvSeries: [[displayTableFlag: false, exclusionValues: 'Interfaces,Traits,Classes,Methods,Functions,Constants', file: 'build/logs/phploc.csv', inclusionFlag: 'INCLUDE_BY_STRING', url: '']], group: 'phploc', numBuilds: '100', style: 'line', title: 'BB - Structure Objects', yaxis: 'Count'
         }
     }
-    stage ('Package Artifact') {
-        steps {
-            sh 'zip -q php-todo.zip ${WORKSPACE}/php_todo_cicd/*'
-        }
-    }
+    // stage ('Package Artifact') {
+    //     steps {
+    //         sh 'zip -q php-todo.zip ${WORKSPACE}/php_todo_cicd/*'
+    //     }
+    // }
     stage ('Upload Artifact to Artifactory') {
         steps {
             script { 
@@ -63,9 +63,9 @@ pipeline {
                 def uploadSpec = """{
                     "files": [
                       {
-                       "pattern": "php-todo.zip",
-                       "target": "PBL/php-todo.zip",
-                       "props": "type=zip;status=ready"
+                       "pattern": "${WORKSPACE}/php_todo_cicd/*",
+                       "target": "PBL/artifacts/",
+                       "recursive": "false"
 
                        }
                     ]
