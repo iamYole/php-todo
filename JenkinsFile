@@ -60,12 +60,13 @@ pipeline {
          steps{
           script{
             withSonarQubeEnv(credentialsId: 'SonarToken'){
-              sh "${scannerCmd} -Dsonar.projectKey=todo \
+              sh '''${scannerHome}/bin/sonar-scanner \
+               -Dsonar.projectKey=todo \
                -Dsonar.projectName=PhP-TODO \
                -Dsonar.sources=/ \
                -Dsonar.php.exclusions=**/vendor/** \
                -Dsonar.php.coverage.reportPaths=build/logs/clover.xml \
-               -Dsonar.php.tests.reportPath=build/logs/junit.xml"
+               -Dsonar.php.tests.reportPath=build/logs/junit.xml'''
             }
           }
          }    
