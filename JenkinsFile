@@ -61,6 +61,7 @@ pipeline {
           script{
             withSonarQubeEnv(credentialsId: 'SonarToken'){
               sh '''${scannerHome}/bin/sonar-scanner \
+               -X \
                -Dsonar.projectKey=todo \
                -Dsonar.projectName=PhP-TODO \
                -Dsonar.sources=/var/lib/jenkins/workspace/php_todo_cicd/ \
