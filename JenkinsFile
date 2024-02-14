@@ -51,6 +51,26 @@ pipeline {
             plot csvFileName: 'plot-396c4a6b-b573-41e5-85d8-73613b2ffffb.csv', csvSeries: [[displayTableFlag: false, exclusionValues: 'Interfaces,Traits,Classes,Methods,Functions,Constants', file: 'build/logs/phploc.csv', inclusionFlag: 'INCLUDE_BY_STRING', url: '']], group: 'phploc', numBuilds: '100', style: 'line', title: 'BB - Structure Objects', yaxis: 'Count'
         }
     }
+
+    stage ('Sonar Analysis') {
+         environment{
+            scannerHome = tool 'sonar4.7'
+         }
+
+         steps{
+          script{
+            withSonarQubeEnv(credentialsId: 'SonarToken'){
+              sh "${scannerCmd} -Dsonar.projectKey=todo \
+               -Dsonar.projectName=PhP-TODO \
+               -Dsonar.sources=/ \
+               -Dsonar.php.exclusions=**/vendor/** \
+               -Dsonar.php.coverage.reportPaths=build/logs/clover.xml \
+               -Dsonar.php.tests.reportPath=build/logs/junit.xml"
+            }
+          }
+         }    
+     }
+
      stage ('Package Artifact') {
          steps {
              sh  'ls -l'
