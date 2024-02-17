@@ -68,16 +68,11 @@ pipeline {
                -Dsonar.php.coverage.reportPaths=build/logs/clover.xml \
                -Dsonar.php.tests.reportPath=build/logs/junit.xml'''
             }
+            timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
           }
          }
-
-         steps {
-              timeout(time: 1, unit: 'MINUTES') {
-                  // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                  // true = set pipeline to UNSTABLE, false = don't
-                  waitForQualityGate abortPipeline: true
-              }
-          }    
      }
 
      stage("Quality Gate") {
