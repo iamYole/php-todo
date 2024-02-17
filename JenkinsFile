@@ -1,4 +1,5 @@
 pipeline {
+  //Node Selected
     agent {label 'Slave1'}
 
   stages {
