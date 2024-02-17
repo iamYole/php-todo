@@ -69,11 +69,18 @@ pipeline {
                -Dsonar.php.tests.reportPath=build/logs/junit.xml'''
             }
           }
-         }    
+         }
+
+         steps {
+              timeout(time: 1, unit: 'MINUTES') {
+                  // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                  // true = set pipeline to UNSTABLE, false = don't
+                  waitForQualityGate abortPipeline: true
+              }
+          }    
      }
 
      stage("Quality Gate") {
-        when { branch pattern: "^develop*|^hotfix*|^release*|^main", comparator: "REGEXP"}
           environment {
               scannerHome = tool 'sonar5.0'
           }
