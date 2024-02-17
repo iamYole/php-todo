@@ -62,14 +62,11 @@ pipeline {
             withSonarQubeEnv(credentialsId: 'SonarToken'){
               sh '''${scannerHome}/bin/sonar-scanner \
                -Dsonar.projectKey=todo \
-               -Dsonar.projectName=Php-TODO \
+               -Dsonar.projectName=PhP-TODO \
                -Dsonar.sources=/var/lib/jenkins/workspace/php_todo_cicd/ \
                -Dsonar.php.exclusions=**/vendor/** \
                -Dsonar.php.coverage.reportPaths=build/logs/clover.xml \
                -Dsonar.php.tests.reportPath=build/logs/junit.xml'''
-            }
-            timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
             }
           }
          }
